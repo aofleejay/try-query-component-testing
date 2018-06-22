@@ -1,39 +1,68 @@
-import React from 'react';
-import gql from 'graphql-tag'
-import { MockedProvider } from 'react-apollo/test-utils';
-import renderer from 'react-test-renderer';
-import App from './App';
+import React from 'react'
+import { MockedProvider } from 'react-apollo/test-utils'
+import renderer from 'react-test-renderer'
+import waait from 'waait'
+import App, { GET_CURRENCIES } from './App'
 
-it('Render app component when loading', () => {
-  const mocks = [
-    {
-      request: {
-        query: gql`
-          {
-            rates(currency: "USD") {
-              currency
-              rate
-            }
-          }
-        `,
-        variables: {
-          name: 'Buck',
+describe('Test App component', () => {
+  it('Should contain loading ui when promise is pending', () => {
+    const component = renderer.create(
+      <MockedProvider mocks={[]} addTypename={false}>
+        <App />
+      </MockedProvider>,
+    )
+  
+    expect(component).toMatchSnapshot()
+  })
+
+  it('Should contain response when promise has resolved', async () => {
+    const mocks = [
+      {
+        request: {
+          query: GET_CURRENCIES,
+        },
+        result: {
+          data: {
+            rates: [
+              {
+                "currency": "AED",
+                "rate": "3.67"
+              },
+            ],
+          },
         },
       },
-      result: {
-        data: {
-          dog: { id: '1', name: 'Buck', breed: 'bulldog' },
+    ]
+
+    const component = renderer.create(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <App />
+      </MockedProvider>,
+    )
+
+    await waait(0)
+  
+    expect(component).toMatchSnapshot()
+  })
+
+  it('Should contain error when promise has rejects', async () => {
+    const mocks = [
+      {
+        request: {
+          query: GET_CURRENCIES,
         },
+        error: new Error('Noooooooo!!!!')
       },
-    },
-  ];
+    ]
 
-  const component = renderer.create(
-    <MockedProvider mocks={mocks} addTypename={false}>
-      <App />
-    </MockedProvider>,
-  );
+    const component = renderer.create(
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <App />
+      </MockedProvider>,
+    )
 
-  const tree = component.toJSON();
-  expect(tree.children).toContain('Loading...');
-});
+    await waait(0)
+  
+    expect(component).toMatchSnapshot()
+  })
+})

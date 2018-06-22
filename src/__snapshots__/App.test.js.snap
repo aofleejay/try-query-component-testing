@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test App component Should contain error when promise has rejects 1`] = `
+<p>
+  Error :(
+</p>
+`;
+
+exports[`Test App component Should contain loading ui when promise is pending 1`] = `
+<p>
+  Loading...
+</p>
+`;
+
+exports[`Test App component Should contain response when promise has resolved 1`] = `
+<div>
+  <p>
+    AED: 3.67
+  </p>
+</div>
+`;
