@@ -2,13 +2,13 @@ import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import renderer from 'react-test-renderer'
 import waait from 'waait'
-import App, { GET_CURRENCIES } from './App'
+import TodoList, { GET_ALL_TODOES } from './TodoList'
 
-describe('Test App component', () => {
+describe('Test TodoList component', () => {
   it('Should contain loading ui when promise is pending', () => {
     const component = renderer.create(
       <MockedProvider mocks={[]} addTypename={false}>
-        <App />
+        <TodoList />
       </MockedProvider>,
     )
   
@@ -19,14 +19,18 @@ describe('Test App component', () => {
     const mocks = [
       {
         request: {
-          query: GET_CURRENCIES,
+          query: GET_ALL_TODOES,
         },
         result: {
           data: {
-            rates: [
+            allTodoes: [
               {
-                "currency": "AED",
-                "rate": "3.67"
+                id: 'cjiugybsw23z8019717p0cgwb',
+                content: 'Write a blog',
+              },
+              {
+                id: 'cjiugyxca23zc0197lxs4uh29',
+                content: 'Practice guitar',
               },
             ],
           },
@@ -36,7 +40,7 @@ describe('Test App component', () => {
 
     const component = renderer.create(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <App />
+        <TodoList />
       </MockedProvider>,
     )
 
@@ -49,7 +53,7 @@ describe('Test App component', () => {
     const mocks = [
       {
         request: {
-          query: GET_CURRENCIES,
+          query: GET_ALL_TODOES,
         },
         error: new Error('Noooooooo!!!!')
       },
@@ -57,7 +61,7 @@ describe('Test App component', () => {
 
     const component = renderer.create(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <App />
+        <TodoList />
       </MockedProvider>,
     )
 

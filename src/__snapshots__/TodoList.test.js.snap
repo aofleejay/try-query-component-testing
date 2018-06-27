@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test TodoList component Should contain error when promise has rejects 1`] = `
+Array [
+  <p>
+    Error :(
+</p>,
+  <form
+    onSubmit={[Function]}
+>
+    <input
+        name="text"
+    />
+    <button
+        type="submit"
+    >
+        Add Todo
+    </button>
+</form>,
+]
+`;
+
+exports[`Test TodoList component Should contain loading ui when promise is pending 1`] = `
+Array [
+  <p>
+    Loading...
+</p>,
+  <form
+    onSubmit={[Function]}
+>
+    <input
+        name="text"
+    />
+    <button
+        type="submit"
+    >
+        Add Todo
+    </button>
+</form>,
+]
+`;
+
+exports[`Test TodoList component Should contain response when promise has resolved 1`] = `
+Array [
+  <div>
+    <p>
+        Write a blog
+    </p>
+</div>,
+  <div>
+    <p>
+        Practice guitar
+    </p>
+</div>,
+  <form
+    onSubmit={[Function]}
+>
+    <input
+        name="text"
+    />
+    <button
+        type="submit"
+    >
+        Add Todo
+    </button>
+</form>,
+]
+`;
