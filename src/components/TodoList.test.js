@@ -1,18 +1,18 @@
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
-import renderer from 'react-test-renderer'
+import { mount } from 'enzyme'
 import waait from 'waait'
 import TodoList, { GET_ALL_TODOES } from './TodoList'
 
 describe('Test TodoList component', () => {
   it('Should contain loading ui when promise is pending', () => {
-    const component = renderer.create(
+    const wrapper = mount(
       <MockedProvider mocks={[]} addTypename={false}>
         <TodoList />
       </MockedProvider>,
     )
   
-    expect(component).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('Should contain response when promise has resolved', async () => {
@@ -38,7 +38,7 @@ describe('Test TodoList component', () => {
       },
     ]
 
-    const component = renderer.create(
+    const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <TodoList />
       </MockedProvider>,
@@ -46,7 +46,7 @@ describe('Test TodoList component', () => {
 
     await waait(0)
   
-    expect(component).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot()
   })
 
   it('Should contain error when promise has rejects', async () => {
@@ -59,7 +59,7 @@ describe('Test TodoList component', () => {
       },
     ]
 
-    const component = renderer.create(
+    const wrapper = mount(
       <MockedProvider mocks={mocks} addTypename={false}>
         <TodoList />
       </MockedProvider>,
@@ -67,6 +67,6 @@ describe('Test TodoList component', () => {
 
     await waait(0)
   
-    expect(component).toMatchSnapshot()
+    expect(wrapper).toMatchSnapshot()
   })
 })

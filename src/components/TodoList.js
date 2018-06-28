@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { Query, Mutation } from "react-apollo"
 import gql from "graphql-tag"
 
@@ -39,11 +39,14 @@ const TodoList = (props) => (
         <form
           onSubmit={(e) => {
             e.preventDefault()
-            createTodo({ variables: { content: e.target.text.value, isDone: false } })
+            createTodo({
+              variables: { content: e.target.text.value, isDone: false },
+              refetchQueries: [{ query: GET_ALL_TODOES }],
+            })
           }}
         >
-          <input name="text" />
-          <button type="submit">Add Todo</button>
+          <input id="text" type="text" name="text" />
+          <button id="submit" type="submit">Add Todo</button>
         </form>
       )}
     </Mutation>
